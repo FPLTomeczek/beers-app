@@ -17,9 +17,14 @@ export const SingleBeerStyled = styled.div`
   width: 300px;
   text-align: center;
   padding: 1rem;
-  border: 1px solid var(--light-primary-color);
+  border: 2px solid var(--light-primary-color);
   min-height: 300px;
+  box-sizing: border-box;
   cursor: pointer;
+  :hover {
+    border-color: var(--secondary-color);
+  }
+
   .beer-img {
     max-width: 50px;
     object-fit: contain;
@@ -31,6 +36,7 @@ export const SingleBeerStyled = styled.div`
 
 export const BeersPageStyled = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   max-width: 1100px;

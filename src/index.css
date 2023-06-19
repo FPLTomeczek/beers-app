@@ -28,6 +28,16 @@ html {
 
 #root {
   width: 100vw;
+  height: 100vh;
+}
+#root::before {
+  content: "";
+  position: absolute;
+  height: 150px;
+  width: 100%;
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+  background: linear-gradient(to right, #7d6fa2, #7f93b6);
+  z-index: -1;
 }
 
 body {
@@ -93,12 +103,22 @@ button:focus-visible {
   width: var(--rhombus-size);
   height: var(--rhombus-size);
 }
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 5px solid var(--secondary-color);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
 
-.website-background-clip {
-  position: absolute;
-  height: 150px;
-  width: 100%;
-  clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
-  background-color: linear-gradient(to right, #7d6fa2, #7f93b6);
-  z-index: -1;
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
