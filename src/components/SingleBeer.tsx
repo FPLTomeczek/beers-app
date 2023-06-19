@@ -5,7 +5,13 @@ const SingleBeer = ({ name, image_url, tagline }: Beer) => {
   return (
     <SingleBeerStyled>
       <img src={image_url} alt="beer" className="beer-img" />
-      <p>{name}</p>
+      <p className="beer-name">{name}</p>
+      <div className="underline">
+        <div className="rhombus-container">
+          <div className="rhombus"></div>
+        </div>
+      </div>
+
       <p>{tagline}</p>
     </SingleBeerStyled>
   );

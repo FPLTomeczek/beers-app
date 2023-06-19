@@ -5,8 +5,7 @@ import { Beer } from "../interfaces/Beer";
 import SingleBeer from "./SingleBeer";
 import { BeersListStyled } from "../styles/Beers.styled";
 
-const BeersList = () => {
-  const [page, setPage] = useState(10);
+const BeersList = ({ page }: { page: number }) => {
   const [beers, setBeers] = useState([]);
 
   useEffect(() => {
@@ -25,10 +24,14 @@ const BeersList = () => {
   return (
     <BeersListStyled>
       {beers.map((beer) => {
-        const { name, image_url, tagline }: Beer = beer;
-
+        const { id, name, image_url, tagline }: Beer & { id: string } = beer;
         return (
-          <SingleBeer name={name} image_url={image_url} tagline={tagline} />
+          <SingleBeer
+            key={id}
+            name={name}
+            image_url={image_url}
+            tagline={tagline}
+          />
         );
       })}
     </BeersListStyled>
