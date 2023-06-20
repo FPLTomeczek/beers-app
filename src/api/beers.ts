@@ -5,7 +5,15 @@ export const getBeers = async (page: number, beersPerPage: number) => {
     `${API_URL}beers?page=${page}&per_page=${beersPerPage}`
   );
 
-  const data = await response.json();
+  const beersData = await response.json();
 
-  return data;
+  return beersData;
+};
+
+export const getBeer = async (beerID: number) => {
+  const response = await fetch(`${API_URL}beers/${beerID}`);
+
+  const beerData = await response.json();
+
+  return beerData;
 };

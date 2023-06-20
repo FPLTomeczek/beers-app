@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-export const BeersListStyled = styled.section`
-  display: flex;
+export const BeersListStyled = styled.section<{ isLoading: boolean }>`
+  display: ${(props) => (props.isLoading ? "none" : "flex")};
   justify-content: center;
   width: 100%;
   flex-wrap: wrap;
@@ -9,7 +9,7 @@ export const BeersListStyled = styled.section`
   padding: 4rem 0;
 `;
 
-export const SingleBeerStyled = styled.div`
+export const SingleBeerListStyled = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: end;
@@ -21,6 +21,13 @@ export const SingleBeerStyled = styled.div`
   min-height: 300px;
   box-sizing: border-box;
   cursor: pointer;
+
+  #single-beer-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   :hover {
     border-color: var(--secondary-color);
   }
@@ -34,15 +41,17 @@ export const SingleBeerStyled = styled.div`
   }
 `;
 
-export const BeersPageStyled = styled.div`
+export const BeersPageStyled = styled.div<{ isLoading: boolean }>`
   display: flex;
   position: relative;
   flex-direction: column;
   align-items: center;
   max-width: 1100px;
   margin: 0 auto;
-  h1 {
-    color: var(--secondary-color);
+  .spinner-container {
+    height: 70vh;
+    display: ${(props) => (props.isLoading ? "flex" : "none")};
+    align-items: center;
   }
 `;
 

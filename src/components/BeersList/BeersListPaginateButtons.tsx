@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
-import { Direction } from "../enums/Direction";
-import { BeersListPaginateButtonsStyled } from "../styles/Beers.styled";
+import { Direction } from "../../enums/Direction";
+import { BeersListPaginateButtonsStyled } from "../../styles/BeersListPage/Beers.styled";
 
 const BeersListPaginateButtons = ({
   page,
