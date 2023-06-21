@@ -1,4 +1,4 @@
-import { Beer } from "../../types/Beer";
+import { Beer } from "../../interfaces/Beer";
 import { SingleBeerListStyled } from "../../styles/BeersListPage/Beers.styled";
 import { Link } from "react-router-dom";
 

@@ -4,7 +4,7 @@ import Error from "../components/Error";
 const ErrorPage = () => {
   return (
     <ErrorPageStyled>
-      <Error />;
+      <Error />
     </ErrorPageStyled>
   );
 };

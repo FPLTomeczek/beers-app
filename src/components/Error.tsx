@@ -5,7 +5,7 @@ const ErrorPage = () => {
     <div>
       <h2>Page Not Found</h2>
       <Link to="/">
-        <button>Go Back To Beers List</button>
+        <button className="go-back-button">Go Back To Beers List</button>
       </Link>
     </div>
   );

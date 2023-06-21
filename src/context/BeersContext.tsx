@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-import { Beer } from "../types/Beer";
+import { Beer } from "../interfaces/Beer";
 import { beersReducer, BeersActions } from "../reducers/beersReducer";
 
 export type BeersStateType = {
