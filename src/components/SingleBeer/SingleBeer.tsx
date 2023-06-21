@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { getBeer } from "../../api/beers";
 import { SingleBeerStyled } from "../../styles/SingleBeerPage/SingleBeer.styled";
-import { Malt, Hop } from "../../types/Beer";
+import { Malt, Hop } from "../../interfaces/Beer";
 import { useBeersContext } from "../../context/BeersContext";
 import { Types } from "../../reducers/beersReducer";
 import Error from "../Error";

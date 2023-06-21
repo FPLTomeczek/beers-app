@@ -1,4 +1,4 @@
-import { Beer } from "../types/Beer";
+import { Beer } from "../interfaces/Beer";
 import { BeersStateType, initialState } from "../context/BeersContext";
 import { Direction } from "../enums/Direction";
 

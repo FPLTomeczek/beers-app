@@ -5,9 +5,12 @@ export const getBeers = async (page: number, beersPerPage: number) => {
     `${API_URL}beers?page=${page}&per_page=${beersPerPage}`
   );
 
-  const beersData = await response.json();
+  if (response.ok) {
+    const beersData = await response.json();
+    return beersData;
+  }
 
-  return beersData;
+  throw new Error("Beers page not found");
 };
 
 export const getBeer = async (beerID: number) => {
