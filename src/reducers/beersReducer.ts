@@ -1,4 +1,6 @@
 import { Beer } from "../types/Beer";
+import { BeersStateType } from "../context/BeersContext";
+import { Direction } from "../enums/Direction";
 
 type ActionMap<M extends { [index: string]: any }> = {
   [Key in keyof M]: M[Key] extends undefined
@@ -12,18 +14,19 @@ type ActionMap<M extends { [index: string]: any }> = {
 };
 
 export enum Types {
-  Add_Beers = "ADD_BEERS",
-  IsLoading = "IS_LOADING",
+  AddBeers = "ADD_BEERS",
+  IsBeersListLoading = "IS_BEERS_LIST_LOADING",
+  IsSingleBeerLoading = "IS_SINGLE_BEER_LOADING",
+  SetBeer = "SET_BEER",
+  SetPage = "SET_PAGE",
 }
 
-type BeersStateType = {
-  beers: Beer[];
-  isLoading: boolean;
-};
-
 type BeersPayload = {
-  [Types.Add_Beers]: Beer[];
-  [Types.IsLoading]: boolean;
+  [Types.AddBeers]: Beer[];
+  [Types.IsBeersListLoading]: boolean;
+  [Types.IsSingleBeerLoading]: boolean;
+  [Types.SetBeer]: Beer[];
+  [Types.SetPage]: Direction;
 };
 
 export type BeersActions =
@@ -31,15 +34,41 @@ export type BeersActions =
 
 export const beersReducer = (state: BeersStateType, action: BeersActions) => {
   switch (action.type) {
-    case Types.Add_Beers:
+    case Types.AddBeers:
       return {
         ...state,
-        beers: action.payload,
+        beersList: action.payload,
       };
-    case Types.IsLoading:
+    case Types.IsBeersListLoading:
       return {
         ...state,
-        isLoading: action.payload,
+        isBeersListLoading: action.payload,
       };
+    case Types.IsSingleBeerLoading:
+      return {
+        ...state,
+        isSingleBeerLoading: action.payload,
+      };
+    case Types.SetBeer:
+      return {
+        ...state,
+        singleBeer: action.payload,
+      };
+    case Types.SetPage:
+      if (action.payload === Direction.PREV) {
+        return {
+          ...state,
+          beersListPage:
+            state.beersListPage - 1 > 0
+              ? state.beersListPage - 1
+              : state.beersListPage,
+        };
+      } else if (action.payload === Direction.NEXT) {
+        return {
+          ...state,
+          beersListPage: state.beersListPage + 1,
+        };
+      }
+      return { ...state };
   }
 };

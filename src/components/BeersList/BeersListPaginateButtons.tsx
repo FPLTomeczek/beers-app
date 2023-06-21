@@ -1,25 +1,18 @@
-import { Dispatch, SetStateAction } from "react";
 import { Direction } from "../../enums/Direction";
 import { BeersListPaginateButtonsStyled } from "../../styles/BeersListPage/Beers.styled";
+import { useBeersContext } from "../../context/BeersContext";
+import { Types } from "../../reducers/beersReducer";
 
-const BeersListPaginateButtons = ({
-  page,
-  setPage,
-}: {
-  page: number;
-  setPage: Dispatch<SetStateAction<number>>;
-}) => {
+const BeersListPaginateButtons = () => {
+  const { state, dispatch } = useBeersContext();
+
   const handleSettingPage = (direction: Direction) => {
     switch (direction) {
       case Direction.PREV:
-        setPage((prev) => {
-          return prev - 1 > 0 ? prev - 1 : prev;
-        });
+        dispatch({ type: Types.SetPage, payload: direction });
         break;
       case Direction.NEXT:
-        setPage((prev) => {
-          return prev + 1;
-        });
+        dispatch({ type: Types.SetPage, payload: direction });
         break;
     }
   };
@@ -32,7 +25,7 @@ const BeersListPaginateButtons = ({
       >
         <i className="fa-solid fa-angle-left"></i>
       </button>
-      <span className="page-number">{page}</span>
+      <span className="page-number">{state.beersListPage}</span>
       <button
         onClick={() => handleSettingPage(Direction.NEXT)}
         aria-label="next page"

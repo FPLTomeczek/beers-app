@@ -6,6 +6,7 @@ export interface Beer {
   description: string;
   abv: string;
   ibu: string;
+  ingredients: { malt: Malt[]; hops: Hop[]; yeast: string };
 }
 
 export interface Malt {

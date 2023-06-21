@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const SingleBeerPageStyled = styled.div`
+export const SingleBeerPageStyled = styled.div<{ isLoading: boolean }>`
   display: flex;
   flex-direction: column;
   max-width: 1100px;
@@ -10,10 +10,16 @@ export const SingleBeerPageStyled = styled.div`
   .beer-img {
     max-width: 100px;
   }
+
+  .spinner-container {
+    height: 70vh;
+    display: ${(props) => (props.isLoading ? "flex" : "none")};
+    align-items: center;
+  }
 `;
 
-export const SingleBeerStyled = styled.div`
-  display: flex;
+export const SingleBeerStyled = styled.div<{ isLoading: boolean }>`
+  display: ${(props) => (props.isLoading ? "none" : "flex")};
   flex-direction: column;
   padding: 2rem;
   #beer-name {

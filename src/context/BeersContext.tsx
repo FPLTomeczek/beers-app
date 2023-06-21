@@ -2,14 +2,20 @@ import React, { createContext, useReducer, useContext } from "react";
 import { Beer } from "../types/Beer";
 import { beersReducer, BeersActions } from "../reducers/beersReducer";
 
-type BeersStateType = {
-  beers: Beer[];
-  isLoading: boolean;
+export type BeersStateType = {
+  beersList: Beer[];
+  beersListPage: number;
+  isBeersListLoading: boolean;
+  singleBeer: Beer[];
+  isSingleBeerLoading: boolean;
 };
 
 const initialState = {
-  beers: [],
-  isLoading: false,
+  beersList: [],
+  beersListPage: 1,
+  isBeersListLoading: false,
+  singleBeer: [],
+  isSingleBeerLoading: false,
 };
 
 const BeersContext = createContext<{
