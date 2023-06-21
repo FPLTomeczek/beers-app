@@ -10,13 +10,13 @@ import Error from "../Error";
 const BeersList = () => {
   const { state, dispatch } = useBeersContext();
 
-  const counter = useRef(0);
+  const imageCounter = useRef(0);
 
   const imageLoaded = () => {
-    counter.current += 1;
-    if (counter.current === BEERS_PER_PAGE) {
+    imageCounter.current += 1;
+    if (imageCounter.current === BEERS_PER_PAGE) {
       dispatch({ type: Types.IsBeersListLoading, payload: false });
-      counter.current = 0;
+      imageCounter.current = 0;
     }
   };
 
