@@ -4,6 +4,7 @@ import { SingleBeerStyled } from "../../styles/SingleBeerPage/SingleBeer.styled"
 import { Malt, Hop } from "../../types/Beer";
 import { useBeersContext } from "../../context/BeersContext";
 import { Types } from "../../reducers/beersReducer";
+import Error from "../Error";
 
 const SingleBeer = ({ beerID }: { beerID: string | undefined }) => {
   const { state, dispatch } = useBeersContext();
@@ -11,10 +12,13 @@ const SingleBeer = ({ beerID }: { beerID: string | undefined }) => {
   useEffect(() => {
     const fetchBeer = async () => {
       try {
-        const beer = await getBeer(Number(beerID));
-        dispatch({ type: Types.SetBeer, payload: beer });
+        const response = await getBeer(Number(beerID));
+        dispatch({ type: Types.SetBeer, payload: response });
       } catch (error) {
-        console.log(error);
+        dispatch({
+          type: Types.SetError,
+          payload: { value: true, msg: "Beer Not Found" },
+        });
       }
     };
     dispatch({ type: Types.IsSingleBeerLoading, payload: true });
@@ -24,6 +28,10 @@ const SingleBeer = ({ beerID }: { beerID: string | undefined }) => {
   const handleImageOnLoad = () => {
     dispatch({ type: Types.IsSingleBeerLoading, payload: false });
   };
+
+  if (state.isError.value) {
+    return <Error />;
+  }
 
   return (
     <>

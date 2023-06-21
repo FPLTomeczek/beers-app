@@ -1,5 +1,5 @@
 import { Beer } from "../types/Beer";
-import { BeersStateType } from "../context/BeersContext";
+import { BeersStateType, initialState } from "../context/BeersContext";
 import { Direction } from "../enums/Direction";
 
 type ActionMap<M extends { [index: string]: any }> = {
@@ -19,6 +19,7 @@ export enum Types {
   IsSingleBeerLoading = "IS_SINGLE_BEER_LOADING",
   SetBeer = "SET_BEER",
   SetPage = "SET_PAGE",
+  SetError = "SET_ERROR",
 }
 
 type BeersPayload = {
@@ -27,6 +28,7 @@ type BeersPayload = {
   [Types.IsSingleBeerLoading]: boolean;
   [Types.SetBeer]: Beer[];
   [Types.SetPage]: Direction;
+  [Types.SetError]: { value: boolean; msg: string };
 };
 
 export type BeersActions =
@@ -70,5 +72,11 @@ export const beersReducer = (state: BeersStateType, action: BeersActions) => {
         };
       }
       return { ...state };
+    case Types.SetError:
+      return {
+        ...initialState,
+        beersListPage: state.beersListPage,
+        isError: action.payload,
+      };
   }
 };

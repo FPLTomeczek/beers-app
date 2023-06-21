@@ -5,6 +5,7 @@ import SingleBeerList from "./SingleBeerList";
 import { BeersListStyled } from "../../styles/BeersListPage/Beers.styled";
 import { useBeersContext } from "../../context/BeersContext";
 import { Types } from "../../reducers/beersReducer";
+import Error from "../Error";
 
 const BeersList = () => {
   const { state, dispatch } = useBeersContext();
@@ -15,6 +16,7 @@ const BeersList = () => {
     counter.current += 1;
     if (counter.current === BEERS_PER_PAGE) {
       dispatch({ type: Types.IsBeersListLoading, payload: false });
+      counter.current = 0;
     }
   };
 
@@ -29,10 +31,17 @@ const BeersList = () => {
       }
     };
 
-    counter.current = 0;
+    dispatch({
+      type: Types.SetError,
+      payload: { value: false, msg: "" },
+    });
     dispatch({ type: Types.IsBeersListLoading, payload: true });
     fetchBeers();
   }, [state.beersListPage]);
+
+  if (state.isError.value) {
+    return <Error />;
+  }
 
   return (
     <BeersListStyled isLoading={state.isBeersListLoading}>

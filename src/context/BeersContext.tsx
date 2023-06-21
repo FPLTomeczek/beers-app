@@ -8,14 +8,16 @@ export type BeersStateType = {
   isBeersListLoading: boolean;
   singleBeer: Beer[];
   isSingleBeerLoading: boolean;
+  isError: { value: boolean; msg: string };
 };
 
-const initialState = {
+export const initialState = {
   beersList: [],
   beersListPage: 1,
   isBeersListLoading: false,
   singleBeer: [],
   isSingleBeerLoading: false,
+  isError: { value: false, msg: "" },
 };
 
 const BeersContext = createContext<{

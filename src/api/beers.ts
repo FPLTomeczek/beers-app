@@ -13,7 +13,10 @@ export const getBeers = async (page: number, beersPerPage: number) => {
 export const getBeer = async (beerID: number) => {
   const response = await fetch(`${API_URL}beers/${beerID}`);
 
-  const beerData = await response.json();
+  if (response.ok) {
+    const beerData = await response.json();
+    return beerData;
+  }
 
-  return beerData;
+  throw new Error("Beer not Found");
 };

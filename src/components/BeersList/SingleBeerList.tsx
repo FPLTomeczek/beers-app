@@ -10,6 +10,7 @@ const SingleBeerList = ({
   imageLoaded: () => void;
 }) => {
   const { id, image_url, name, tagline } = beer;
+
   return (
     <SingleBeerListStyled>
       <Link to={`/details/${id}`} key={id} id="single-beer-link">
