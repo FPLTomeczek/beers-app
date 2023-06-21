@@ -3,12 +3,13 @@ import { SingleBeerListStyled } from "../../styles/BeersListPage/Beers.styled";
 import { Link } from "react-router-dom";
 
 const SingleBeerList = ({
-  name,
-  id,
-  image_url,
-  tagline,
+  beer,
   imageLoaded,
-}: Partial<Beer> & { imageLoaded: () => void }) => {
+}: {
+  beer: Beer;
+  imageLoaded: () => void;
+}) => {
+  const { id, image_url, name, tagline } = beer;
   return (
     <SingleBeerListStyled>
       <Link to={`/details/${id}`} key={id} id="single-beer-link">

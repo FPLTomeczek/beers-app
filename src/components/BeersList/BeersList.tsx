@@ -1,55 +1,50 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { getBeers } from "../../api/beers";
 import { BEERS_PER_PAGE } from "../../constants";
-import { Beer } from "../../types/Beer";
 import SingleBeerList from "./SingleBeerList";
 import { BeersListStyled } from "../../styles/BeersListPage/Beers.styled";
+import { useBeersContext } from "../../context/BeersContext";
+import { Types } from "../../reducers/beersReducer";
 
-const BeersList = ({
-  page,
-  isLoading,
-  setIsLoading,
-  imageLoaded,
-  counter,
-}: {
-  page: number;
-  isLoading: boolean;
-  setIsLoading: React.Dispatch<SetStateAction<boolean>>;
-  imageLoaded: () => void;
-  counter: React.MutableRefObject<number>;
-}) => {
-  const [beers, setBeers] = useState([]);
+const BeersList = ({ page }: { page: number }) => {
+  const { state, dispatch } = useBeersContext();
+
+  const counter = useRef(0);
+
+  const imageLoaded = () => {
+    counter.current += 1;
+    if (counter.current === BEERS_PER_PAGE) {
+      dispatch({ type: Types.IsLoading, payload: false });
+    }
+  };
 
   useEffect(() => {
     const fetchBeers = async () => {
       try {
         const beers = await getBeers(page, BEERS_PER_PAGE);
-        setBeers(beers);
+        dispatch({ type: Types.Add_Beers, payload: beers });
       } catch (error) {
         console.log(error);
       }
     };
 
     counter.current = 0;
-    setIsLoading(true);
+    dispatch({ type: Types.IsLoading, payload: true });
     fetchBeers();
   }, [page]);
 
   return (
-    <BeersListStyled isLoading={isLoading}>
-      {beers.map((beer) => {
-        const { id, name, image_url, tagline }: Beer & { id: string } = beer;
-        return (
-          <SingleBeerList
-            key={id}
-            imageLoaded={imageLoaded}
-            name={name}
-            image_url={image_url}
-            tagline={tagline}
-            id={id}
-          />
-        );
-      })}
+    <BeersListStyled isLoading={state.isLoading}>
+      {state.beers &&
+        state.beers.map((beer) => {
+          return (
+            <SingleBeerList
+              key={beer.id}
+              imageLoaded={imageLoaded}
+              beer={beer}
+            />
+          );
+        })}
     </BeersListStyled>
   );
 };
